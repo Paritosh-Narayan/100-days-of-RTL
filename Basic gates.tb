@@ -1,0 +1,204 @@
+`timescale 1ns/1ns
+
+module tb_and_gate;
+
+  reg a, b;
+  wire y;
+
+  and_gate uut (
+    .a(a),
+    .b(b),
+    .y(y)
+  );
+
+  initial begin
+    $monitor("Time=%0t, a=%b, b=%b, y=%b", $time, a, b, y);
+
+    // Test case 1
+    a = 0; b = 0;
+    #10;
+
+    // Test case 2
+    a = 1; b = 0;
+    #10;
+
+    // Test case 3
+    a = 0; b = 1;
+    #10;
+
+    // Test case 4
+    a = 1; b = 1;
+    #10;
+
+    // Add more test cases as needed
+
+    $stop;
+  end
+
+endmodule
+
+
+
+
+`timescale 1ns/1ns
+
+module tb_or_gate;
+
+  reg a, b;
+  wire y;
+
+  or_gate uut (
+    .a(a),
+    .b(b),
+    .y(y)
+  );
+
+  initial begin
+    $monitor("Time=%0t, a=%b, b=%b, y=%b", $time, a, b, y);
+
+    // Test case 1
+    a = 0; b = 0;
+    #10;
+
+    // Test case 2
+    a = 1; b = 0;
+    #10;
+
+    // Test case 3
+    a = 0; b = 1;
+    #10;
+
+    // Test case 4
+    a = 1; b = 1;
+    #10;
+
+    // Add more test cases as needed
+
+    $stop;
+  end
+
+endmodule
+
+
+
+`timescale 1ns/1ns
+
+module tb_xor_gate;
+
+  reg a, b;
+  wire y;
+
+  xor_gate uut (
+    .a(a),
+    .b(b),
+    .y(y)
+  );
+
+  initial begin
+    $monitor("Time=%0t, a=%b, b=%b, y=%b", $time, a, b, y);
+
+    // Test case 1
+    a = 0; b = 0;
+    #10;
+
+    // Test case 2
+    a = 1; b = 0;
+    #10;
+
+    // Test case 3
+    a = 0; b = 1;
+    #10;
+
+    // Test case 4
+    a = 1; b = 1;
+    #10;
+
+    // Add more test cases as needed
+
+    $stop;
+  end
+
+endmodule
+
+
+
+`timescale 1ns/1ns
+
+module tb_not_gate;
+
+  // Input
+  reg a;
+
+  // Output
+  wire y;
+
+  // Instantiate NOT gate
+  not_gate uut (
+    .a(a),
+    .y(y)
+  );
+
+  // Initial block for test cases
+  initial begin
+    $display("Time=%0t, a=%b, y=%b", $time, a, y);
+
+    // Test case 1
+    a = 0;
+    #10;
+
+    // Test case 2
+    a = 1;
+    #10;
+
+    // Add more test cases as needed
+
+    $stop; // Stop simulation
+  end
+
+endmodule
+
+
+
+
+`timescale 1ns/1ns
+
+module tb_xnor_gate;
+
+  // Inputs
+  reg a, b;
+
+  // Output
+  wire y;
+
+  // Instantiate XNOR gate
+  xnor_gate uut (
+    .a(a),
+    .b(b),
+    .y(y)
+  );
+
+  // Initial block for test cases
+  initial begin
+    $display("Time=%0t, a=%b, b=%b, y=%b", $time, a, b, y);
+
+    // Test case 1
+    a = 0; b = 0;
+    #10;
+
+    // Test case 2
+    a = 1; b = 0;
+    #10;
+
+    // Test case 3
+    a = 0; b = 1;
+    #10;
+
+    // Test case 4
+    a = 1; b = 1;
+    #10;
+
+    // Add more test cases as needed
+
+    $stop; // Stop simulation
+  end
+endmodule
