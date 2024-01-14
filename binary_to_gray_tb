@@ -1,0 +1,35 @@
+// tb_binary_to_gray_assign.v
+module tb_binary_to_gray_assign;
+
+    reg [3:0] binary;
+    wire [3:0] gray;
+
+    // Instantiate the binary to Gray code converter
+    binary_to_gray_assign uut (
+        .binary(binary),
+        .gray(gray)
+    );
+
+    initial begin
+        $monitor("Time=%0t | Binary: %b, Gray: %b", $time, binary, gray);
+
+        // Test cases
+        binary = 4'b0000;
+        #10;
+
+        binary = 4'b0101;
+        #10;
+
+        binary = 4'b1100;
+        #10;
+
+        binary = 4'b1111;
+        #10;
+
+        // Add more test cases as needed
+
+        // Finish simulation
+        #10 $finish;
+    end
+
+endmodule
