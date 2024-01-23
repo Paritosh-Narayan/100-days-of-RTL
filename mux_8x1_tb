@@ -1,0 +1,43 @@
+`timescale 1ns/1ns  // Set the timescale
+
+module testbench_mux_8x1;
+
+  // Inputs
+  reg [7:0] data_inputs;
+  reg [2:0] select_line;
+
+  // Output
+  wire output_data;
+
+  // Instantiate the 8x1 multiplexer module
+  mux_8x1 uut (
+    .data_inputs(data_inputs),
+    .select_line(select_line),
+    .output_data(output_data)
+  );
+
+  // Initial block for stimulus generation
+  initial begin
+    // Initialize inputs
+    data_inputs = 8'b0;
+    select_line = 3'b000;
+
+    // Apply stimulus
+    #10 data_inputs = 8'b10101010;
+    #10 select_line = 3'b010;
+
+    #10 data_inputs = 8'b11001100;
+    #10 select_line = 3'b110;
+
+    // Add more test cases as needed
+
+    // Stop simulation
+    #10 $finish;
+  end
+
+  // Display the results
+  always @(posedge output_data) begin
+    $display("Output Data: %b", output_data);
+  end
+
+endmodule
