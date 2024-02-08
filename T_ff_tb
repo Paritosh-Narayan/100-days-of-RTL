@@ -1,0 +1,43 @@
+`timescale 1ns / 1ns
+
+module t_flip_flop_comb_tb;
+
+    reg t;
+    reg clk;
+    wire q;
+    reg reset; // Add a reset signal
+    
+    // Instantiate the T flip-flop
+    t_flip_flop_comb t_ff (
+        .t(t),
+        .clk(clk),
+        .q(q)
+    );
+
+    // Clock generation
+    always #5 clk = ~clk;
+
+    // Reset generation
+    initial begin
+        clk = 0;
+        reset = 1; // Assert reset initially
+        #10 reset = 0; // De-assert reset after 10 time units
+        
+        #50 $finish; // Finish simulation after 50 time units
+    end
+
+    // Stimulus
+    initial begin
+        #15 t = 1; // Set T input high after 15 time units
+        #10 t = 0; // Set T input low after 10 time units
+        #10 t = 1; // Set T input high after 10 time units
+        #10 t = 0; // Set T input low after 10 time units
+        #10 t = 1; // Set T input high after 10 time units
+        #10 t = 0; // Set T input low after 10 time units
+    end
+
+    // Output display
+    always @(posedge clk)
+        $display("At time %t, q = %b", $time, q);
+
+endmodule
