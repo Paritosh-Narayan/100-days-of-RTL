@@ -1,0 +1,48 @@
+`timescale 1ns / 1ps
+
+module ring_counter_tb;
+
+    // Parameters
+    parameter CLK_PERIOD = 10; // Clock period in ns
+
+    // Signals
+    reg clk = 0;   // Clock signal
+    reg reset = 0; // Reset signal
+    wire [3:0] out; // Output signal from ring_counter module
+
+    // Instantiate the ring_counter module
+    ring_counter dut (
+        .clk(clk),
+        .reset(reset),
+        .out(out)
+    );
+
+    // Clock generation
+    always #((CLK_PERIOD / 2)) clk = ~clk;
+
+    // Reset generation
+    initial begin
+        // Initial reset
+        reset = 1;
+        #50; // Hold reset for a few cycles
+        reset = 0;
+    end
+
+    // Stimulus
+    initial begin
+        // Wait for some time
+        #100;
+
+        // Toggle reset
+        reset = 1;
+        #20;
+        reset = 0;
+
+        // Wait for some cycles to observe the output
+        #200;
+
+        // End simulation
+        $finish;
+    end
+
+endmodule
