@@ -1,0 +1,15 @@
+module tank_level_indicator(
+    input wire tank_sensor,   // Input sensor indicating tank level (1 for full, 0 for empty)
+    output reg led           // Output LED indicating tank level
+);
+
+// Initially set LED to indicate empty tank
+always @(posedge tank_sensor)
+begin
+    if (tank_sensor == 1)  // Tank is full
+        led <= 1;           // LED on
+    else                    // Tank is empty
+        led <= 0;           // LED off
+end
+
+endmodule
