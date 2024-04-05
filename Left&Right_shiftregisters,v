@@ -1,0 +1,40 @@
+module shift_register(
+    input clk,          // Clock input
+    input reset,        // Reset input
+    input enable,       // Enable input for shifting
+    input direction,    // Direction input: 0 for left shift, 1 for right shift
+    input [7:0] data_in,// Data input
+    output reg [7:0] data_out // Data output
+);
+
+reg [7:0] reg_data; // 8-bit shift register
+
+always @(posedge clk or posedge reset) begin
+    if (reset) begin
+        reg_data <= 8'b00000000; // Reset the register to all zeros
+    end else begin
+        if (enable) begin
+            if (direction == 0) begin
+                // Left shift
+                reg_data <= {reg_data[6:0], data_in}; // Shift in new data at the leftmost bit
+            end else begin
+                // Right shift
+                reg_data <= {data_in, reg_data[7:1]}; // Shift in new data at the rightmost bit
+            end
+        end
+    end
+end
+
+always @* begin
+    if (enable) begin
+        if (direction == 0) begin
+            data_out = {reg_data[6:0], 1'b0}; // Output the data from the shift register (left shift)
+        end else begin
+            data_out = {1'b0, reg_data[7:1]}; // Output the data from the shift register (right shift)
+        end
+    end else begin
+        data_out = reg_data; // Output the current value if shifting is disabled
+    end
+end
+
+endmodule
