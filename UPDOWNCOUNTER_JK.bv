@@ -1,0 +1,41 @@
+module up_down_counter (
+    input wire clk,       // Clock input
+    input wire rst_n,     // Reset input (active low)
+    input wire up_down,   // Up/Down control input
+    output reg [3:0] count // 4-bit counter output
+);
+
+// Internal signals
+reg [3:0] next_count;
+
+// JK flip-flop instantiation
+reg [3:0] jk_in;
+wire [3:0] q, qbar;
+wire [3:0] next_q;
+
+// Counter logic
+always @(posedge clk or negedge rst_n) begin
+    if (~rst_n) begin
+        count <= 4'b0000; // Reset to 0 when reset is active
+    end else begin
+        count <= next_count; // Update count based on next_count
+    end
+end
+
+// JK flip-flop logic
+assign next_q = (up_down) ? jk_in + 4'b0001 : jk_in - 4'b0001;
+
+always @(posedge clk or negedge rst_n) begin
+    if (~rst_n) begin
+        jk_in <= 4'b0000; // Reset to 0 when reset is active
+    end else begin
+        jk_in <= next_q; // Update JK flip-flop input
+    end
+end
+
+// Assign next_count to next_q
+always @(*) begin
+    next_count <= next_q;
+end
+
+endmodule
