@@ -1,0 +1,45 @@
+`timescale 1ns / 1ps
+
+module even_odd_checker_tb;
+
+// Parameters
+parameter CLK_PERIOD = 10; // Clock period in ns
+
+// Inputs
+reg [7:0] num;
+reg clk;
+
+// Outputs
+wire even;
+wire odd;
+
+// Instantiate the even/odd checker module
+even_odd_checker uut(
+    .num(num),
+    .even(even),
+    .odd(odd)
+);
+
+// Clock generation
+always #((CLK_PERIOD)/2) clk = ~clk;
+
+// Stimulus
+initial begin
+    num = 8'b00000000; // Test even number
+    #10;
+    num = 8'b00000001; // Test odd number
+    #10;
+    num = 8'b00000010; // Test even number
+    #10;
+    num = 8'b00000011; // Test odd number
+    #10;
+    // Add more test cases as needed
+    $finish;
+end
+
+// Monitor
+always @(posedge clk) begin
+    $display("Input Number: %b, Even: %b, Odd: %b", num, even, odd);
+end
+
+endmodule
